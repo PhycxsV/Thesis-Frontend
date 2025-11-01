@@ -10,7 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #F9FAFB;
+  background: #ffffff;
   min-height: 100vh;
   color: #1e293b;
   line-height: 1.6;
@@ -32,7 +32,7 @@ code {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
 }
 
 .landing-content {
@@ -55,13 +55,13 @@ code {
 .landing-title {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #3B82F6;
+  color: #16a34a;
   margin-bottom: 0.25rem;
 }
 
 .landing-subtitle {
   font-size: 1.125rem;
-  color: #6B7280;
+  color: #1e293b;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -100,7 +100,7 @@ code {
 .step-icon {
   width: 2rem;
   height: 2rem;
-  color: #3B82F6;
+  color: #22c55e;
   margin-bottom: 0.5rem;
 }
 
@@ -113,8 +113,24 @@ code {
 
 .step-description {
   font-size: 0.875rem;
-  color: #6B7280;
+  color: #64748b;
   line-height: 1.5;
+}
+
+.landing-description {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.landing-description p {
+  font-size: 0.875rem;
+  color: #065f46;
+  line-height: 1.6;
+  margin: 0;
+  text-align: center;
 }
 
 .btn {
@@ -149,14 +165,14 @@ code {
 }
 
 .btn-primary {
-  background: #3B82F6;
+  background: #16a34a;
   color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+  box-shadow: 0 8px 25px rgba(22, 163, 74, 0.6);
 }
 
 .btn-secondary {
@@ -206,7 +222,7 @@ code {
 .main-title {
   font-size: 2rem;
   font-weight: 800;
-  color: #3B82F6;
+  color: #16a34a;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -260,8 +276,8 @@ code {
 
 .form-input:focus {
   outline: none;
-  border-color: #3B82F6;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  border-color: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
 }
 
 .farms-container {
@@ -279,14 +295,14 @@ code {
 }
 
 .farm-card:hover {
-  border-color: #3B82F6;
-  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1);
+  border-color: #22c55e;
+  box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.1);
 }
 
 .farm-title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #3B82F6;
+  color: #16a34a;
   margin-bottom: 1rem;
 }
 
@@ -358,7 +374,7 @@ code {
 .results-title {
   font-size: 2rem;
   font-weight: 800;
-  color: #3B82F6;
+  color: #16a34a;
 }
 
 .btn-export {
@@ -366,7 +382,7 @@ code {
 }
 
 .results-summary {
-  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
   padding: 1.5rem;
   border-radius: 16px;
   margin-bottom: 2rem;
@@ -399,7 +415,7 @@ code {
 
 .summary-value {
   font-size: 1.25rem;
-  color: #3B82F6;
+  color: #16a34a;
   font-weight: 700;
 }
 
@@ -559,6 +575,15 @@ code {
     gap: 1rem;
   }
 
+  .landing-description {
+    padding: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .landing-description p {
+    font-size: 0.8125rem;
+  }
+
   .main-container {
     padding: 1rem 0.5rem;
   }
@@ -618,6 +643,19 @@ code {
 
   .landing-title {
     font-size: 1.5rem;
+  }
+
+  .landing-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .landing-description {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .landing-description p {
+    font-size: 0.75rem;
   }
 
   .main-content {

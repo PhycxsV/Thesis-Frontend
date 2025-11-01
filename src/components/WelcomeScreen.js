@@ -14,10 +14,10 @@ const LandingPage = () => {
       <div className="landing-content">
         <div className="landing-header">
           <h1 className="landing-title">
-            AgriRise: Optimized Irrigation Water Allocation
+            AgriRise
           </h1>
           <h2 className="landing-subtitle">
-            A Decision-Support System for Cuyapo, Nueva Ecija
+            Optimization of Irrigation Water Allocation in Cuyapo, Nueva Ecija Using NSGA-II Genetic Algorithm
           </h2>
         </div>
 
@@ -47,6 +47,14 @@ const LandingPage = () => {
                 Receive a clear, actionable water allocation plan to enhance productivity and reduce conflict.
               </p>
             </div>
+          </div>
+          <div className="landing-description">
+            <p>
+              This system uses NSGA-II (Non-dominated Sorting Genetic Algorithm II) to optimize irrigation water allocation 
+              efficiently across agricultural areas in Cuyapo, Nueva Ecija. It considers multiple factors including crop water 
+              requirements, soil conditions, reservoir capacity, and environmental needs to provide optimal 
+              water distribution recommendations while balancing equity, sustainability, and demand fulfillment.
+            </p>
           </div>
         </div>
 
