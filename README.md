@@ -1,12 +1,12 @@
 # AgriRise: Optimization of Irrigation Water Allocation in Cuyapo, Nueva Ecija Using NSGA-II Genetic Algorithm
 
-A React-based web application for optimizing irrigation water allocation using the Non-dominated Sorting Genetic Algorithm II (NSGA-II) in the Cuyapo agricultural region of Nueva Ecija, Philippines.
+A full-stack web application for optimizing irrigation water allocation using the Non-dominated Sorting Genetic Algorithm II (NSGA-II) in the Cuyapo agricultural region of Nueva Ecija, Philippines.
 
 ## System Requirements
 
-### Node.js and npm
+### Frontend Requirements
 
-This application requires Node.js version 14.0.0 or higher and npm version 6.0.0 or higher.
+Node.js version 14.0.0 or higher and npm version 6.0.0 or higher.
 
 To check your current versions, run:
 ```
@@ -19,139 +19,304 @@ https://nodejs.org/
 
 Note: npm is included with Node.js installation.
 
-### Dependencies
+### Backend Requirements
 
-The following dependencies are required and will be installed automatically:
+Python version 3.7 or higher and pip (Python package installer).
 
-- React version 17.0.2
-- React DOM version 17.0.2
-- React Scripts version 3.4.4
-- Recharts version 1.8.5 (for data visualization)
-- Lucide React version 0.194.0 (for user interface icons)
+To check your current versions, run:
+```
+python --version
+pip --version
+```
 
-All dependencies are specified in the package.json file and will be installed when you run npm install.
-
-### Browser Compatibility
-
-This application is supported on the following web browsers:
-
-- Google Chrome (latest version recommended)
-- Mozilla Firefox (latest version)
-- Microsoft Edge (latest version)
-- Safari (latest version)
-
-JavaScript must be enabled in your browser for the application to function.
+If you do not have Python installed, download it from:
+https://www.python.org/downloads/
 
 ## Installation
 
-1. Open your terminal or command prompt.
+### Frontend Installation
 
-2. Navigate to the project directory:
+1. Navigate to the project directory:
 ```
 cd Thesis-Frontend
 ```
 
-3. Install all required dependencies:
+2. Install all required frontend dependencies:
 ```
 npm install
 ```
 
-This command will read the package.json file and install all necessary dependencies. The installation may take several minutes depending on your internet connection.
+This will install:
+- React 17.0.2
+- React Router DOM 5.3.4
+- Axios 0.27.2
+- Recharts 1.8.5
+- Lucide React 0.194.0
+
+### Backend Installation
+
+1. Navigate to the backend directory:
+```
+cd backend
+```
+
+2. Create a virtual environment (recommended):
+```
+python -m venv venv
+```
+
+3. Activate the virtual environment:
+
+On Windows:
+```
+venv\Scripts\activate
+```
+
+On Linux/Mac:
+```
+source venv/bin/activate
+```
+
+4. Install Python dependencies:
+```
+pip install -r requirements.txt
+```
+
+This will install:
+- Flask 2.3.3
+- Flask-CORS 4.0.0
+- DEAP 1.3.3
+- NumPy 1.24.3
 
 ## Running the Application
 
-1. Start the development server:
+### Starting the Backend Server
+
+1. Navigate to the backend directory:
+```
+cd backend
+```
+
+2. Activate the virtual environment (if not already activated):
+```
+venv\Scripts\activate  # Windows
+source venv/bin/activate  # Linux/Mac
+```
+
+3. Start the Flask server:
+```
+python app.py
+```
+
+The backend server will start on http://localhost:5000
+
+### Starting the Frontend Server
+
+1. Open a new terminal window and navigate to the project root:
+```
+cd Thesis-Frontend
+```
+
+2. Start the React development server:
 ```
 npm start
 ```
 
-2. The application will automatically open in your default web browser at:
-```
-http://localhost:3000
-```
+The application will automatically open in your default web browser at http://localhost:3000
 
 If the browser does not open automatically, manually navigate to http://localhost:3000
 
-3. To stop the development server, press Ctrl+C in your terminal.
+### Using the Application
+
+1. The landing page will display "How It Works" with three steps explaining the system.
+
+2. Click "Get Started" to go to the main input page.
+
+3. On the input page:
+   - Enter total available water supply
+   - Specify the number of farms
+   - For each farm, provide: farm size, crop water requirement, and canal capacity
+
+4. Click "Generate Optimal Allocation" to run the NSGA-II optimization.
+
+5. View results including:
+   - Optimized water allocation per farm
+   - Performance metrics (total shortage, fairness index, water efficiency)
+   - Visual charts showing allocation vs demand
+
+6. Export results or go back to modify inputs.
+
+### Features
+
+The application provides the following features:
+
+- Landing page with system overview and three-step process explanation
+- Dynamic input form that generates farm sections based on number of farms
+- NSGA-II multi-objective optimization with three objectives:
+  - Minimize total water shortage
+  - Maximize equity (Jain's Fairness Index)
+  - Maximize water efficiency
+- Real-time constraint validation
+- Comprehensive results display with metrics and visualizations
+- Export functionality for results
+- Responsive design for desktop, tablet, and mobile devices
 
 ## Building for Production
 
-To create an optimized production build:
+### Frontend Build
 
-1. Run the build command:
+To create an optimized production build of the frontend:
+
 ```
 npm run build
 ```
 
-2. The built files will be in the 'build' folder. You can deploy this folder to any static file hosting service.
+The built files will be in the 'build' folder. Deploy this folder to any static file hosting service.
+
+### Backend Deployment
+
+For production deployment, configure a WSGI server such as Gunicorn or uWSGI instead of the Flask development server.
 
 ## Project Structure
 
 - src/
-  - App.js - Main application component and logic
+  - App.js - Main application component with routing
   - components/
-    - WelcomeScreen.js - Initial welcome screen
-    - WaterInputForm.js - Water resource data input
-    - FarmDataForm.js - Agricultural data input
-    - AllocationCalculator.js - NSGA-II calculation parameters
-    - ResultsDisplay.js - Results display and visualization
+    - WelcomeScreen.js - Landing page component
+    - MainInputPage.jsx - Input form with dynamic farm fields
+    - ResultsPage.jsx - Results display with charts
   - index.js - Application entry point
   - index.css - Global styles and responsive design
+
+- backend/
+  - app.py - Flask application with API endpoints
+  - nsga2.py - NSGA-II optimization implementation
+  - requirements.txt - Python dependencies
 
 - public/
   - index.html - Main HTML file
 
-## Features
+## API Documentation
 
-The application includes:
+### POST /api/optimize
 
-- Welcome screen with system overview and instructions
-- Water resource data input (storage capacity, volume, inflow rates, rainfall)
-- Agricultural data input (number of farms, crop areas, soil moisture, irrigation efficiency)
-- NSGA-II genetic algorithm parameters configuration
-- Constraint weights for equity, sustainability, and demand fulfillment
-- Real-time water allocation calculations
-- Results visualization and analysis
+Optimize water allocation using NSGA-II algorithm.
+
+Request Body (JSON):
+```
+{
+  "total_water_supply": 100000,
+  "num_farms": 3,
+  "farm_sizes": [50, 60, 70],
+  "crop_water_reqs": [8.5, 10.0, 8.5],
+  "canal_capacities": [40000, 45000, 40000]
+}
+```
+
+Response (JSON):
+```
+{
+  "allocations": [
+    {
+      "farm_id": 1,
+      "farm_size": 50,
+      "water_allocated": 33333.33,
+      "shortage": 91666.67
+    }
+  ],
+  "metrics": {
+    "total_shortage": 150000,
+    "fairness_index": 0.95,
+    "water_efficiency": 0.82
+  }
+}
+```
+
+### GET /api/health
+
+Check backend server health status.
+
+Response:
+```
+{
+  "status": "healthy"
+}
+```
 
 ## Testing
+
+### Frontend Testing
 
 To run the test suite:
 ```
 npm test
 ```
 
+### Backend Testing
+
+Test the API endpoints using tools like curl or Postman:
+```
+curl http://localhost:5000/api/health
+```
+
 ## Technical Specifications
 
-- React 17.0.2 for user interface components
-- Responsive design supporting desktop, tablet, and mobile devices
-- CSS3 with flexbox and grid layouts
-- No build tools required beyond react-scripts
-- ES6+ JavaScript syntax
+Frontend:
+- React 17.0.2 with functional components and hooks
+- React Router 5.3.4 for client-side routing
+- Axios 0.27.2 for HTTP requests
+- Recharts for data visualization
+- Responsive CSS with flexbox and grid layouts
+
+Backend:
+- Flask 2.3.3 web framework
+- DEAP 1.3.3 for genetic algorithm implementation
+- NumPy 1.24.3 for numerical computations
+- Flask-CORS for cross-origin resource sharing
 
 ## Troubleshooting
 
-If you encounter issues during installation:
+### Frontend Issues
 
-1. Delete the node_modules folder and package-lock.json file
+If you encounter issues during installation:
+1. Delete node_modules folder and package-lock.json
 2. Run npm install again
-3. Ensure you have Node.js version 14.0.0 or higher
-4. Clear your npm cache: npm cache clean --force
+3. Ensure Node.js version 14.0.0 or higher
+4. Clear npm cache: npm cache clean --force
 
 If the application does not start:
-
 1. Check that port 3000 is available
-2. Ensure no firewall is blocking the application
-3. Try running npm start with administrator privileges
+2. Try running npm start with administrator privileges
 
-For build errors:
+### Backend Issues
 
-1. Delete the build folder
-2. Run npm install again
-3. Run npm run build
+If Python import errors occur:
+1. Ensure virtual environment is activated
+2. Verify all packages in requirements.txt are installed
+3. Check Python version is 3.7 or higher
+
+If the backend server fails to start:
+1. Check that port 5000 is available
+2. Verify Flask is installed correctly
+3. Check app.py for syntax errors
+
+### Connection Issues
+
+If the frontend cannot connect to the backend:
+1. Ensure the backend server is running on port 5000
+2. Check firewall settings are not blocking localhost connections
+3. Verify CORS is properly configured in app.py
+4. The frontend will automatically fall back to mock data if the backend is unavailable
 
 ## Academic Use
 
-This application is designed for academic research purposes. It implements the NSGA-II genetic algorithm for multi-objective optimization of irrigation water allocation, considering constraints of equity, sustainability, and demand fulfillment with the objective of maximizing crop production.
+This application is designed for academic research purposes. It implements the NSGA-II genetic algorithm for multi-objective optimization of irrigation water allocation in the Cuyapo agricultural region. The system considers three objectives:
+
+1. Minimize total water shortage across all farms
+2. Maximize equity using Jain's Fairness Index for water distribution
+3. Maximize water efficiency by meeting crop water requirements
+
+Constraints include total water supply limits, individual canal capacities, and non-negative allocation requirements.
 
 ## License
 
