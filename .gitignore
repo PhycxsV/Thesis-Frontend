@@ -98,7 +98,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# public - commented out because Create React App needs this folder tracked
 
 # Storybook build outputs
 .out
