@@ -16,12 +16,8 @@ const mockData = {
   farmData: {
     numberOfFarms: 150,
     totalAgriculturalArea: 2500,
-    riceArea: 1200,
+    riceArea: 2500,
     riceType: 'Inbred',
-    cornArea: 800,
-    cornType: 'Open Pollinated',
-    vegetablesArea: 500,
-    vegetablesType: 'Traditional',
     currentSoilMoisture: 65,
     irrigationEfficiency: 75
   },
@@ -67,10 +63,6 @@ function App() {
         totalAgriculturalArea,
         riceArea,
         riceType,
-        cornArea,
-        cornType,
-        vegetablesArea,
-        vegetablesType,
         currentSoilMoisture,
         irrigationEfficiency
       } = farmData;
@@ -88,40 +80,22 @@ function App() {
       const rainfallContribution = rainfallInWatershed * totalAgriculturalArea * 10; // mm to m³ conversion
       const totalWaterAvailable = (storageWater + inflowWater + rainfallContribution) / calculationPeriod;
 
-      // Crop water requirements based on type (m³/day per hectare)
-      const cropWaterRequirements = {
-        rice: {
-          'Inbred': 8.5,
-          'Hybrid': 10.0
-        },
-        corn: {
-          'Open Pollinated': 6.0,
-          'Hybrid': 7.5
-        },
-        vegetables: {
-          'Traditional': 4.5,
-          'Improved': 5.5
-        }
-      };
-
-      const cropAreas = { 
-        rice: { area: riceArea, type: riceType },
-        corn: { area: cornArea, type: cornType },
-        vegetables: { area: vegetablesArea, type: vegetablesType }
+      // Rice water requirements based on type (m³/day per hectare)
+      const riceWaterRequirements = {
+        'Inbred': 8.5,
+        'Hybrid': 10.0
       };
       
-      // Calculate base water demand
+      // Calculate base water demand for rice only
       let agriculturalWaterDemand = 0;
-      Object.entries(cropAreas).forEach(([crop, data]) => {
-        if (data.area > 0) {
-          const waterReq = cropWaterRequirements[crop][data.type] || cropWaterRequirements[crop]['Inbred'] || cropWaterRequirements[crop]['Open Pollinated'] || cropWaterRequirements[crop]['Traditional'];
-          const baseDemand = data.area * waterReq;
-          // Adjust for soil moisture and irrigation efficiency
-          const soilMoistureFactor = Math.max(0.5, 1 - (currentSoilMoisture / 100));
-          const efficiencyFactor = irrigationEfficiency / 100;
-          agriculturalWaterDemand += baseDemand * soilMoistureFactor / efficiencyFactor;
-        }
-      });
+      if (riceArea > 0) {
+        const waterReq = riceWaterRequirements[riceType] || 8.5;
+        const baseDemand = riceArea * waterReq;
+        // Adjust for soil moisture and irrigation efficiency
+        const soilMoistureFactor = Math.max(0.5, 1 - (currentSoilMoisture / 100));
+        const efficiencyFactor = irrigationEfficiency / 100;
+        agriculturalWaterDemand = baseDemand * soilMoistureFactor / efficiencyFactor;
+      }
 
       // Apply priority multiplier
       const priorityMultipliers = { High: 1.2, Medium: 1.0, Low: 0.8 };
@@ -134,34 +108,23 @@ function App() {
 
       if (waterAllocationMethod === 'Proportional') {
         // Proportional allocation based on area
-        const totalCropArea = riceArea + cornArea + vegetablesArea;
         recommendedAllocation = Math.min(agriculturalWaterDemand, totalWaterAvailable - minimumEnvironmentalFlow);
         
-        Object.entries(cropAreas).forEach(([crop, data]) => {
-          if (totalCropArea > 0) {
-            const percentage = data.area / totalCropArea;
-            distributionPerCrop[crop] = {
-              allocation: recommendedAllocation * percentage,
-              area: data.area,
-              percentage: percentage * 100
-            };
-          } else {
-            distributionPerCrop[crop] = { allocation: 0, area: data.area, percentage: 0 };
-          }
-        });
+        distributionPerCrop.rice = {
+          allocation: recommendedAllocation,
+          area: riceArea,
+          percentage: 100
+        };
       } else {
         // Equal priority allocation per farm
         const allocationPerFarm = Math.min(agriculturalWaterDemand, totalWaterAvailable - minimumEnvironmentalFlow) / numberOfFarms;
         recommendedAllocation = allocationPerFarm * numberOfFarms;
         
-        Object.entries(cropAreas).forEach(([crop, data]) => {
-          const farmsForCrop = Math.ceil(data.area / (totalAgriculturalArea / numberOfFarms));
-          distributionPerCrop[crop] = {
-            allocation: allocationPerFarm * farmsForCrop,
-            area: data.area,
-            percentage: (allocationPerFarm * farmsForCrop / recommendedAllocation) * 100
-          };
-        });
+        distributionPerCrop.rice = {
+          allocation: recommendedAllocation,
+          area: riceArea,
+          percentage: 100
+        };
       }
 
       // Calculate water balance
