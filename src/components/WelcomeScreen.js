@@ -27,7 +27,7 @@ const WelcomeScreen = ({ onStart }) => {
             <div className="instruction-card">
               <Sprout className="instruction-icon" />
               <h4>Step 2: Enter Agricultural Data</h4>
-              <p>Provide details about farms, crop areas (rice, corn, vegetables), soil moisture levels, and irrigation efficiency.</p>
+              <p>Provide details about farms, rice area and type (Inbred or Hybrid), soil moisture levels, and irrigation efficiency.</p>
             </div>
 
             <div className="instruction-card">
