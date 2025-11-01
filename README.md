@@ -1,137 +1,162 @@
-# Water Allocation Monitoring System
+# AgriRise: Optimization of Irrigation Water Allocation in Cuyapo, Nueva Ecija Using NSGA-II Genetic Algorithm
 
-A comprehensive React frontend application for monitoring and managing water allocation between Pantabangan Reservoir and Cuyapo Agricultural Area. This system provides real-time calculations, data visualization, and professional reporting capabilities.
+A React-based web application for optimizing irrigation water allocation using the Non-dominated Sorting Genetic Algorithm II (NSGA-II) in the Cuyapo agricultural region of Nueva Ecija, Philippines.
 
-## Features
+## System Requirements
 
-### 📊 **Input Forms**
-- **Water Input Form**: Reservoir data including storage capacity, current volume, inflow rates, and rainfall
-- **Farm Data Form**: Agricultural data with crop distribution, soil moisture, and irrigation efficiency
-- **Allocation Calculator**: Calculation parameters including priority levels and allocation methods
+### Node.js and npm
 
-### 📈 **Real-time Calculations**
-- Automatic water allocation calculations based on input parameters
-- Support for both proportional and equal priority allocation methods
-- Environmental flow considerations
-- Priority-based allocation multipliers
+This application requires Node.js version 14.0.0 or higher and npm version 6.0.0 or higher.
 
-### 📊 **Data Visualization**
-- Water balance pie chart
-- Allocation distribution bar charts
-- Historical trend line charts
-- Area vs allocation scatter plots
+To check your current versions, run:
+```
+node --version
+npm --version
+```
 
-### 💾 **Data Management**
-- Save/load functionality with localStorage
-- Export results to JSON format
-- Reset to default values
-- Mock data initialization
+If you do not have Node.js installed, download it from:
+https://nodejs.org/
+
+Note: npm is included with Node.js installation.
+
+### Dependencies
+
+The following dependencies are required and will be installed automatically:
+
+- React version 17.0.2
+- React DOM version 17.0.2
+- React Scripts version 3.4.4
+- Recharts version 1.8.5 (for data visualization)
+- Lucide React version 0.194.0 (for user interface icons)
+
+All dependencies are specified in the package.json file and will be installed when you run npm install.
+
+### Browser Compatibility
+
+This application is supported on the following web browsers:
+
+- Google Chrome (latest version recommended)
+- Mozilla Firefox (latest version)
+- Microsoft Edge (latest version)
+- Safari (latest version)
+
+JavaScript must be enabled in your browser for the application to function.
 
 ## Installation
 
-1. **Install Dependencies**
-   ```bash
-   npm install
-   ```
+1. Open your terminal or command prompt.
 
-2. **Start Development Server**
-   ```bash
-   npm start
-   ```
+2. Navigate to the project directory:
+```
+cd Thesis-Frontend
+```
 
-3. **Open Browser**
-   Navigate to `http://localhost:3000`
+3. Install all required dependencies:
+```
+npm install
+```
 
-## Usage
+This command will read the package.json file and install all necessary dependencies. The installation may take several minutes depending on your internet connection.
 
-### 1. **Enter Water Data**
-   - Total Storage Capacity (million m³)
-   - Current Storage Volume (million m³)
-   - Daily Inflow Rate (m³/day)
-   - Rainfall in Watershed (mm)
+## Running the Application
 
-### 2. **Enter Farm Data**
-   - Number of Farms
-   - Total Agricultural Area (hectares)
-   - Crop Type Distribution (Rice, Corn, Vegetables)
-   - Current Soil Moisture (%)
-   - Irrigation Efficiency (%)
+1. Start the development server:
+```
+npm start
+```
 
-### 3. **Set Calculation Parameters**
-   - Priority Level (High/Medium/Low)
-   - Water Allocation Method (Proportional/Equal Priority)
-   - Minimum Environmental Flow (m³/day)
-   - Calculation Period (days)
+2. The application will automatically open in your default web browser at:
+```
+http://localhost:3000
+```
 
-### 4. **View Results**
-   - Real-time calculation results
-   - Water balance analysis
-   - Distribution per crop type
-   - Efficiency metrics
+If the browser does not open automatically, manually navigate to http://localhost:3000
 
-### 5. **Data Management**
-   - Save current data to browser storage
-   - Load previously saved data
-   - Export results to JSON file
-   - Reset to default values
+3. To stop the development server, press Ctrl+C in your terminal.
 
-## Technical Details
+## Building for Production
 
-### **Water Allocation Logic**
-- **Proportional Method**: Allocates water based on crop area percentage
-- **Equal Priority Method**: Allocates equal water per farm regardless of area
-- **Priority Multipliers**: High (1.2x), Medium (1.0x), Low (0.8x)
-- **Environmental Flow**: Reserved water for environmental needs
+To create an optimized production build:
 
-### **Crop Water Requirements**
-- Rice: 8.5 m³/day per hectare
-- Corn: 6.0 m³/day per hectare
-- Vegetables: 4.5 m³/day per hectare
+1. Run the build command:
+```
+npm run build
+```
 
-### **Calculation Factors**
-- Soil moisture impact on water demand
-- Irrigation efficiency adjustments
-- Rainfall contribution to water availability
-- Storage and inflow considerations
+2. The built files will be in the 'build' folder. You can deploy this folder to any static file hosting service.
 
-## Components
+## Project Structure
 
-- `WaterInputForm.js` - Reservoir data input
-- `FarmDataForm.js` - Agricultural data input
-- `AllocationCalculator.js` - Calculation parameters
-- `ResultsDisplay.js` - Results presentation
-- `DataCharts.js` - Data visualization
-- `App.js` - Main application logic
+- src/
+  - App.js - Main application component and logic
+  - components/
+    - WelcomeScreen.js - Initial welcome screen
+    - WaterInputForm.js - Water resource data input
+    - FarmDataForm.js - Agricultural data input
+    - AllocationCalculator.js - NSGA-II calculation parameters
+    - ResultsDisplay.js - Results display and visualization
+  - index.js - Application entry point
+  - index.css - Global styles and responsive design
 
-## Dependencies
+- public/
+  - index.html - Main HTML file
 
-- React 18.2.0
-- Recharts 2.8.0 (for data visualization)
-- Lucide React 0.263.1 (for icons)
+## Features
 
-## Browser Compatibility
+The application includes:
 
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
+- Welcome screen with system overview and instructions
+- Water resource data input (storage capacity, volume, inflow rates, rainfall)
+- Agricultural data input (number of farms, crop areas, soil moisture, irrigation efficiency)
+- NSGA-II genetic algorithm parameters configuration
+- Constraint weights for equity, sustainability, and demand fulfillment
+- Real-time water allocation calculations
+- Results visualization and analysis
+
+## Testing
+
+To run the test suite:
+```
+npm test
+```
+
+## Technical Specifications
+
+- React 17.0.2 for user interface components
+- Responsive design supporting desktop, tablet, and mobile devices
+- CSS3 with flexbox and grid layouts
+- No build tools required beyond react-scripts
+- ES6+ JavaScript syntax
+
+## Troubleshooting
+
+If you encounter issues during installation:
+
+1. Delete the node_modules folder and package-lock.json file
+2. Run npm install again
+3. Ensure you have Node.js version 14.0.0 or higher
+4. Clear your npm cache: npm cache clean --force
+
+If the application does not start:
+
+1. Check that port 3000 is available
+2. Ensure no firewall is blocking the application
+3. Try running npm start with administrator privileges
+
+For build errors:
+
+1. Delete the build folder
+2. Run npm install again
+3. Run npm run build
 
 ## Academic Use
 
-This application is designed for academic research and educational purposes in water resource management. It provides a comprehensive tool for:
-
-- Water allocation modeling
-- Agricultural water demand analysis
-- Reservoir management studies
-- Environmental flow assessment
-- Policy impact analysis
+This application is designed for academic research purposes. It implements the NSGA-II genetic algorithm for multi-objective optimization of irrigation water allocation, considering constraints of equity, sustainability, and demand fulfillment with the objective of maximizing crop production.
 
 ## License
 
 This project is for academic and educational use only.
 
+## Contact
 
-
-
-
-
+For questions or issues regarding this application, please contact the development team or refer to the thesis documentation.
