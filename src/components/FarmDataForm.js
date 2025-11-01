@@ -5,32 +5,18 @@ const FarmDataForm = ({ onDataChange, initialData = {} }) => {
   const [formData, setFormData] = useState({
     numberOfFarms: initialData.numberOfFarms || 150,
     totalAgriculturalArea: initialData.totalAgriculturalArea || 2500,
-    riceArea: initialData.riceArea || 1200,
+    riceArea: initialData.riceArea || 2500,
     riceType: initialData.riceType || 'Inbred',
-    cornArea: initialData.cornArea || 800,
-    cornType: initialData.cornType || 'Open Pollinated',
-    vegetablesArea: initialData.vegetablesArea || 500,
-    vegetablesType: initialData.vegetablesType || 'Traditional',
     currentSoilMoisture: initialData.currentSoilMoisture || 65,
     irrigationEfficiency: initialData.irrigationEfficiency || 75
   });
 
   const [errors, setErrors] = useState({});
 
-  // Crop water requirements based on type (in m³/day per hectare)
-  const cropWaterRequirements = {
-    rice: {
-      'Inbred': 8.5,
-      'Hybrid': 10.0
-    },
-    corn: {
-      'Open Pollinated': 6.0,
-      'Hybrid': 7.5
-    },
-    vegetables: {
-      'Traditional': 4.5,
-      'Improved': 5.5
-    }
+  // Rice water requirements based on type (in m³/day per hectare)
+  const riceWaterRequirements = {
+    'Inbred': 8.5,
+    'Hybrid': 10.0
   };
 
   useEffect(() => {
@@ -46,11 +32,8 @@ const FarmDataForm = ({ onDataChange, initialData = {} }) => {
       newErrors[name] = 'Soil moisture cannot exceed 100%';
     } else if (name === 'irrigationEfficiency' && value > 100) {
       newErrors[name] = 'Irrigation efficiency cannot exceed 100%';
-    } else if (name === 'riceArea' || name === 'cornArea' || name === 'vegetablesArea') {
-      const totalCropArea = formData.riceArea + formData.cornArea + formData.vegetablesArea;
-      if (totalCropArea > formData.totalAgriculturalArea) {
-        newErrors[name] = 'Total crop area cannot exceed total agricultural area';
-      }
+    } else if (name === 'riceArea' && value > formData.totalAgriculturalArea) {
+      newErrors[name] = 'Rice area cannot exceed total agricultural area';
     } else {
       delete newErrors[name];
     }
@@ -72,17 +55,17 @@ const FarmDataForm = ({ onDataChange, initialData = {} }) => {
     }
   };
 
-  const totalCropArea = formData.riceArea + formData.cornArea + formData.vegetablesArea;
-  const remainingArea = formData.totalAgriculturalArea - totalCropArea;
+  const remainingArea = formData.totalAgriculturalArea - formData.riceArea;
 
   const isFormValid = Object.keys(errors).length === 0 && 
     formData.numberOfFarms > 0 && 
     formData.totalAgriculturalArea > 0 && 
+    formData.riceArea >= 0 &&
+    formData.riceArea <= formData.totalAgriculturalArea &&
     formData.currentSoilMoisture >= 0 && 
     formData.currentSoilMoisture <= 100 &&
     formData.irrigationEfficiency >= 0 && 
-    formData.irrigationEfficiency <= 100 &&
-    totalCropArea <= formData.totalAgriculturalArea;
+    formData.irrigationEfficiency <= 100;
 
   return (
     <div className="card">
@@ -144,7 +127,7 @@ const FarmDataForm = ({ onDataChange, initialData = {} }) => {
           <option value="Hybrid">Hybrid Rice</option>
         </select>
         <div className="text-sm text-gray-600 mt-1">
-          Water requirement: {cropWaterRequirements.rice[formData.riceType]} m³/day per hectare
+          Water requirement: {riceWaterRequirements[formData.riceType]} m³/day per hectare
         </div>
       </div>
 
@@ -163,78 +146,6 @@ const FarmDataForm = ({ onDataChange, initialData = {} }) => {
         />
         {errors.riceArea && (
           <div className="error-message">{errors.riceArea}</div>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="cornType">
-          Corn Crop Type
-        </label>
-        <select
-          id="cornType"
-          name="cornType"
-          value={formData.cornType}
-          onChange={handleInputChange}
-        >
-          <option value="Open Pollinated">Open Pollinated Corn</option>
-          <option value="Hybrid">Hybrid Corn</option>
-        </select>
-        <div className="text-sm text-gray-600 mt-1">
-          Water requirement: {cropWaterRequirements.corn[formData.cornType]} m³/day per hectare
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="cornArea">
-          Corn Area (hectares)
-        </label>
-        <input
-          type="number"
-          id="cornArea"
-          name="cornArea"
-          value={formData.cornArea}
-          onChange={handleInputChange}
-          min="0"
-          step="0.1"
-        />
-        {errors.cornArea && (
-          <div className="error-message">{errors.cornArea}</div>
-        )}
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="vegetablesType">
-          Vegetables Crop Type
-        </label>
-        <select
-          id="vegetablesType"
-          name="vegetablesType"
-          value={formData.vegetablesType}
-          onChange={handleInputChange}
-        >
-          <option value="Traditional">Traditional Vegetables</option>
-          <option value="Improved">Improved Varieties</option>
-        </select>
-        <div className="text-sm text-gray-600 mt-1">
-          Water requirement: {cropWaterRequirements.vegetables[formData.vegetablesType]} m³/day per hectare
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="vegetablesArea">
-          Vegetables Area (hectares)
-        </label>
-        <input
-          type="number"
-          id="vegetablesArea"
-          name="vegetablesArea"
-          value={formData.vegetablesArea}
-          onChange={handleInputChange}
-          min="0"
-          step="0.1"
-        />
-        {errors.vegetablesArea && (
-          <div className="error-message">{errors.vegetablesArea}</div>
         )}
       </div>
 
@@ -281,7 +192,7 @@ const FarmDataForm = ({ onDataChange, initialData = {} }) => {
         <div className="text-sm text-gray-700">
           <strong>Area Summary:</strong>
           <div className="mt-1">
-            Total Crop Area: {totalCropArea.toFixed(1)} hectares
+            Rice Area: {formData.riceArea.toFixed(1)} hectares
           </div>
           <div className="text-light-yellow">
             Remaining Area: {remainingArea.toFixed(1)} hectares
@@ -299,4 +210,3 @@ const FarmDataForm = ({ onDataChange, initialData = {} }) => {
 };
 
 export default FarmDataForm;
-

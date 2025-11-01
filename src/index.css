@@ -699,9 +699,9 @@ code {
 }
 
 .welcome-subtitle {
-  font-size: 0.95rem;
-  color: #64748b;
-  font-weight: 500;
+  font-size: 1.125rem;
+  color: #1e293b;
+  font-weight: 600;
   line-height: 1.4;
 }
 
@@ -800,7 +800,7 @@ code {
   }
 
   .welcome-subtitle {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .welcome-instructions h3 {
@@ -871,7 +871,7 @@ code {
   }
 
   .welcome-subtitle {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
   }
 
   .welcome-instructions h3 {
