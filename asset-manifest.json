@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Thesis-Frontend/static/css/main.406fed0a.chunk.css",
+    "main.js": "/Thesis-Frontend/static/js/main.472a1553.chunk.js",
+    "main.js.map": "/Thesis-Frontend/static/js/main.472a1553.chunk.js.map",
+    "runtime-main.js": "/Thesis-Frontend/static/js/runtime-main.a4f3e823.js",
+    "runtime-main.js.map": "/Thesis-Frontend/static/js/runtime-main.a4f3e823.js.map",
+    "static/js/2.aea1d902.chunk.js": "/Thesis-Frontend/static/js/2.aea1d902.chunk.js",
+    "static/js/2.aea1d902.chunk.js.map": "/Thesis-Frontend/static/js/2.aea1d902.chunk.js.map",
+    "index.html": "/Thesis-Frontend/index.html",
+    "precache-manifest.f53156c0ee4a03cf6ba48ddc8c2d1e4d.js": "/Thesis-Frontend/precache-manifest.f53156c0ee4a03cf6ba48ddc8c2d1e4d.js",
+    "service-worker.js": "/Thesis-Frontend/service-worker.js",
+    "static/css/main.406fed0a.chunk.css.map": "/Thesis-Frontend/static/css/main.406fed0a.chunk.css.map",
+    "static/js/2.aea1d902.chunk.js.LICENSE.txt": "/Thesis-Frontend/static/js/2.aea1d902.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a4f3e823.js",
+    "static/js/2.aea1d902.chunk.js",
+    "static/css/main.406fed0a.chunk.css",
+    "static/js/main.472a1553.chunk.js"
+  ]
+}
